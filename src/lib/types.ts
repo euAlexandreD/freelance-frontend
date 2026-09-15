@@ -23,3 +23,24 @@ export type Servico = {
   categoria_servico: CategoriaServico
   perfil_prestador: PerfilPrestadorResumo
 }
+
+export type PerfilClienteResumo = {
+  id: number
+  user: {
+    id: number
+    name: string
+    email: string
+  }
+}
+
+export type PedidoStatus = 'pendente' | 'aceito' | 'recusado' | 'concluido' | 'cancelado'
+
+export type Pedido = {
+  id: number
+  perfil_cliente_id: number
+  servico_id: number
+  status: PedidoStatus
+  descricao_pedido: string | null
+  servico: Servico
+  perfil_cliente?: PerfilClienteResumo
+}

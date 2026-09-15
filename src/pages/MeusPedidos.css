@@ -1,0 +1,45 @@
+@import './MeusServicos.css';
+
+.pedido-status {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 999px;
+  margin-bottom: 8px;
+}
+
+.pedido-status-pendente {
+  color: #fbbf24;
+  background: rgba(251, 191, 36, 0.12);
+}
+
+.pedido-status-aceito {
+  color: #60a5fa;
+  background: rgba(96, 165, 250, 0.12);
+}
+
+.pedido-status-concluido {
+  color: #4ade80;
+  background: rgba(74, 222, 128, 0.12);
+}
+
+.pedido-status-recusado,
+.pedido-status-cancelado {
+  color: #f87171;
+  background: rgba(248, 113, 113, 0.12);
+}
+
+.pedido-prestador {
+  font-size: 12px;
+  color: var(--color-text-muted);
+  margin-bottom: 4px;
+}
+
+.pedido-observacao {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  font-style: italic;
+}

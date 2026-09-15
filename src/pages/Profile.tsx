@@ -317,9 +317,18 @@ export function Profile() {
           <Link to="/servicos" className="profile-nav-link">
             Ver catálogo de serviços
           </Link>
-          {role === 'prestador' && (
-            <Link to="/meus-servicos" className="profile-nav-link">
-              Gerenciar meus serviços
+          {role === 'prestador' ? (
+            <>
+              <Link to="/meus-servicos" className="profile-nav-link">
+                Gerenciar meus serviços
+              </Link>
+              <Link to="/pedidos-recebidos" className="profile-nav-link">
+                Pedidos recebidos
+              </Link>
+            </>
+          ) : (
+            <Link to="/meus-pedidos" className="profile-nav-link">
+              Meus pedidos
             </Link>
           )}
         </div>
