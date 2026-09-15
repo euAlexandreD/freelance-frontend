@@ -67,7 +67,7 @@ export function Login() {
 
       localStorage.setItem('token', data.token)
       setSuccess(true)
-      navigate('/perfil')
+      navigate('/servicos')
     } catch {
       setGeneralError('Não foi possível conectar ao servidor.')
     } finally {
