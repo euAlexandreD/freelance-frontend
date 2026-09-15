@@ -1,6 +1,8 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { Login } from './pages/Login'
 import { Profile } from './pages/Profile'
+import { Servicos } from './pages/Servicos'
+import { MeusServicos } from './pages/MeusServicos'
 
 function App() {
   return (
@@ -8,6 +10,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/perfil" element={<Profile />} />
+        <Route path="/servicos" element={<Servicos />} />
+        <Route path="/meus-servicos" element={<MeusServicos />} />
       </Routes>
     </BrowserRouter>
   )
