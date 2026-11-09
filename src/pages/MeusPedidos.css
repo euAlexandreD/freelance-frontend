@@ -43,3 +43,46 @@
   color: var(--color-text-secondary);
   font-style: italic;
 }
+
+.pedido-titulo {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-text);
+  margin: 0 0 2px;
+}
+
+.pedido-preco {
+  font-size: 13px;
+  color: var(--color-accent);
+  margin-bottom: 8px;
+}
+
+.pedido-prestador a {
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+.pedido-avaliacao {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 8px;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 0.5px solid var(--color-border);
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+.pedido-avaliacao .pedido-observacao {
+  flex-basis: 100%;
+}
+
+.avaliar-pedido {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 0.5px solid var(--color-border);
+}

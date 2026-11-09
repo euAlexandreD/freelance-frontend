@@ -1,0 +1,48 @@
+.estrelas {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  color: var(--color-text-secondary);
+}
+
+.estrelas-icones {
+  display: inline-flex;
+  color: #fbbf24;
+}
+
+.estrelas-nota {
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.estrelas-total,
+.estrelas-vazio {
+  color: var(--color-text-muted);
+}
+
+.estrelas-input {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.estrelas-input-btn {
+  background: none;
+  border: none;
+  padding: 6px;
+  min-width: 44px;
+  min-height: 44px;
+  color: var(--color-text-dim);
+  cursor: pointer;
+}
+
+.estrelas-input-btn.is-active {
+  color: #fbbf24;
+}
+
+.estrelas-input-rotulo {
+  margin-left: 6px;
+  font-size: 12px;
+  color: var(--color-text-secondary);
+}

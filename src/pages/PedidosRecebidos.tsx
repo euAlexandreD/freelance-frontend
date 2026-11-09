@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { apiFetch } from '../lib/api'
 import type { Pedido } from '../lib/types'
+import { Estrelas } from '../components/Estrelas'
 import './MeusPedidos.css'
 
 const STATUS_LABEL: Record<Pedido['status'], string> = {
@@ -71,7 +72,7 @@ export function PedidosRecebidos() {
       if (!res.ok) throw new Error()
 
       const atualizado: Pedido = await res.json()
-      setPedidos((prev) => prev.map((p) => (p.id === id ? atualizado : p)))
+      setPedidos((prev) => prev.map((p) => (p.id === id ? { ...p, ...atualizado } : p)))
     } catch {
       setError('Não foi possível atualizar o pedido.')
     } finally {
@@ -117,10 +118,20 @@ export function PedidosRecebidos() {
               {STATUS_LABEL[pedido.status]}
             </span>
             <span className="catalog-card-categoria">{pedido.servico.categoria_servico.nome}</span>
-            <p className="catalog-card-descricao">{pedido.servico.descricao}</p>
+            <h2 className="pedido-titulo">{pedido.servico.titulo}</h2>
             <p className="pedido-prestador">Cliente: {pedido.perfil_cliente?.user.name}</p>
             {pedido.descricao_pedido && (
               <p className="pedido-observacao">"{pedido.descricao_pedido}"</p>
+            )}
+
+            {pedido.avaliacao && (
+              <div className="pedido-avaliacao">
+                <span>Avaliação do cliente:</span>
+                <Estrelas nota={pedido.avaliacao.nota} />
+                {pedido.avaliacao.comentario && (
+                  <p className="pedido-observacao">"{pedido.avaliacao.comentario}"</p>
+                )}
+              </div>
             )}
 
             {pedido.status === 'pendente' && (

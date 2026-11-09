@@ -5,6 +5,7 @@ import { Servicos } from './pages/Servicos'
 import { MeusServicos } from './pages/MeusServicos'
 import { MeusPedidos } from './pages/MeusPedidos'
 import { PedidosRecebidos } from './pages/PedidosRecebidos'
+import { PrestadorPerfil } from './pages/PrestadorPerfil'
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/meus-servicos" element={<MeusServicos />} />
         <Route path="/meus-pedidos" element={<MeusPedidos />} />
         <Route path="/pedidos-recebidos" element={<PedidosRecebidos />} />
+        <Route path="/prestadores/:id" element={<PrestadorPerfil />} />
       </Routes>
     </BrowserRouter>
   )

@@ -1,0 +1,153 @@
+.catalog-card.servico-card {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  overflow: hidden;
+}
+
+.servico-card-capa {
+  aspect-ratio: 16 / 10;
+  background: var(--color-surface-2);
+}
+
+.servico-card-capa img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.servico-card-sem-foto {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-dim);
+}
+
+.servico-card-miniaturas {
+  display: flex;
+  gap: 6px;
+  padding: 8px 16px 0;
+  overflow-x: auto;
+}
+
+.servico-card-miniatura {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  overflow: hidden;
+  background: none;
+  cursor: pointer;
+  opacity: 0.6;
+}
+
+.servico-card-miniatura.is-active {
+  border-color: var(--color-accent);
+  opacity: 1;
+}
+
+.servico-card-miniatura img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.servico-card-corpo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 14px 16px 16px;
+  flex: 1;
+}
+
+.servico-card-corpo .catalog-card-categoria {
+  margin-bottom: 0;
+}
+
+.servico-card-titulo {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--color-text);
+  margin: 0;
+  line-height: 1.3;
+}
+
+.servico-card-preco {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-accent);
+}
+
+.servico-card-descricao {
+  margin: 4px 0 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.servico-card-prestador {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 10px;
+  border-top: 0.5px solid var(--color-border);
+  text-decoration: none;
+  min-height: 44px;
+}
+
+.servico-card-prestador span {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.servico-card-prestador strong {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.servico-card-prestador small {
+  font-size: 11px;
+  color: var(--color-text-muted);
+}
+
+.servico-card-prestador:hover strong {
+  color: var(--color-accent);
+}
+
+.avatar {
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.avatar-iniciais {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-surface-2);
+  border: 0.5px solid var(--color-border);
+  color: var(--color-text-secondary);
+  font-weight: 600;
+}
+
+.catalog-request-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  box-sizing: border-box;
+}
+
+.catalog-request-feedback.is-error {
+  color: #f87171;
+}

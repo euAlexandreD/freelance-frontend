@@ -1,0 +1,35 @@
+.servico-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.servico-form .auth-field {
+  display: block;
+}
+
+.servico-form-select {
+  margin-bottom: 0;
+  max-width: none;
+}
+
+.servico-form-preco {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0 12px;
+}
+
+.servico-form-submit {
+  width: auto;
+  flex: 1;
+  margin-bottom: 0;
+}
+
+@media (min-width: 640px) {
+  .servico-form-preco {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .servico-form .servico-form-select {
+    max-width: none;
+  }
+}

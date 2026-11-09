@@ -56,3 +56,10 @@
     max-width: 480px;
   }
 }
+
+.meus-servicos-subtitle {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--color-text);
+  margin: 0 0 14px;
+}

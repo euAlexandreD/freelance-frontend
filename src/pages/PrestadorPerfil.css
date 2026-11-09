@@ -1,0 +1,141 @@
+@import './Servicos.css';
+
+.prestador-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 14px;
+  background: var(--color-surface);
+  border: 0.5px solid var(--color-border);
+  border-radius: var(--radius-input);
+  padding: 24px 16px;
+  margin-bottom: 24px;
+}
+
+.prestador-hero-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+.prestador-nome {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--color-text);
+  margin: 0;
+}
+
+.prestador-titulo {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+}
+
+.prestador-meta {
+  list-style: none;
+  padding: 0;
+  margin: 4px 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4px 14px;
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+.prestador-meta li {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.prestador-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  color: var(--color-accent);
+  text-decoration: none;
+  min-height: 44px;
+}
+
+.prestador-secao {
+  margin-bottom: 28px;
+}
+
+.prestador-secao-titulo {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--color-text);
+  margin: 0 0 12px;
+}
+
+.prestador-bio {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+  white-space: pre-line;
+  max-width: 70ch;
+}
+
+.prestador-avaliacoes {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.prestador-avaliacao {
+  background: var(--color-surface);
+  border: 0.5px solid var(--color-border);
+  border-radius: var(--radius-input);
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.prestador-avaliacao-topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.prestador-avaliacao-data,
+.prestador-avaliacao-autor {
+  font-size: 11px;
+  color: var(--color-text-muted);
+}
+
+.prestador-avaliacao-comentario {
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--color-text-secondary);
+}
+
+@media (min-width: 640px) {
+  .prestador-hero {
+    flex-direction: row;
+    align-items: flex-start;
+    text-align: left;
+    padding: 28px;
+    gap: 24px;
+  }
+
+  .prestador-hero-info {
+    align-items: flex-start;
+  }
+
+  .prestador-meta {
+    justify-content: flex-start;
+  }
+
+  .prestador-avaliacoes {
+    max-width: 720px;
+  }
+}

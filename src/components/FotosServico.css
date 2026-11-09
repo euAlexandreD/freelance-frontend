@@ -1,0 +1,75 @@
+.fotos-servico {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.fotos-servico-grade {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(64px, 1fr));
+  gap: 8px;
+}
+
+.fotos-servico-item {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 0.5px solid var(--color-border);
+}
+
+.fotos-servico-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.fotos-servico-remover {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.7);
+  color: #fff;
+  cursor: pointer;
+}
+
+.fotos-servico-adicionar {
+  aspect-ratio: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  border: 1px dashed var(--color-border);
+  border-radius: 8px;
+  background: var(--color-surface-2);
+  color: var(--color-text-muted);
+  font-family: inherit;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.fotos-servico-adicionar:hover:not(:disabled) {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.fotos-servico-dica {
+  font-size: 11px;
+  color: var(--color-text-dim);
+}
+
+.fotos-servico-erro {
+  font-size: 12px;
+  color: #f87171;
+}
