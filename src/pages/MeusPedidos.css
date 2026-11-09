@@ -86,3 +86,8 @@
   padding-top: 12px;
   border-top: 0.5px solid var(--color-border);
 }
+
+.catalog-card.is-destaque {
+  border-color: var(--color-accent);
+  scroll-margin-top: 16px;
+}

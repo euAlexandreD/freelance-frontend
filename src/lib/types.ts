@@ -75,6 +75,18 @@ export type Pedido = {
   servico: Servico
   perfil_cliente?: PerfilClienteResumo
   avaliacao?: Avaliacao | null
+  /** Mensagens da outra parte que o usuário ainda não leu. */
+  mensagens_nao_lidas?: number
+}
+
+export type Mensagem = {
+  id: number
+  texto: string
+  created_at: string
+  lida_em: string | null
+  /** true quando a mensagem foi enviada pelo usuário logado. */
+  minha: boolean
+  autor: string
 }
 
 export type AvaliacaoPublica = {

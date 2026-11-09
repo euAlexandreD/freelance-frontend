@@ -1,0 +1,156 @@
+.conversa-abrir {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.conversa-badge {
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 999px;
+  background: var(--color-accent);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 18px;
+  text-align: center;
+}
+
+.conversa {
+  margin-top: 12px;
+  border: 0.5px solid var(--color-border);
+  border-radius: var(--radius-input);
+  background: var(--color-bg);
+  overflow: hidden;
+}
+
+.conversa-topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  border-bottom: 0.5px solid var(--color-border);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+}
+
+.conversa-fechar {
+  background: none;
+  border: none;
+  color: var(--color-text-muted);
+  font-family: inherit;
+  font-size: 12px;
+  cursor: pointer;
+  min-height: 32px;
+  padding: 0 4px;
+}
+
+.conversa-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 320px;
+  min-height: 120px;
+  overflow-y: auto;
+  padding: 12px;
+}
+
+.conversa-vazia {
+  margin: auto;
+  padding: 12px;
+  font-size: 12px;
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+.conversa-msg {
+  align-self: flex-start;
+  max-width: 85%;
+  background: var(--color-surface-2);
+  border-radius: 12px 12px 12px 4px;
+  padding: 8px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.conversa-msg.is-minha {
+  align-self: flex-end;
+  background: var(--color-accent);
+  border-radius: 12px 12px 4px 12px;
+}
+
+.conversa-autor {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-accent);
+}
+
+.conversa-texto {
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--color-text);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.conversa-hora {
+  align-self: flex-end;
+  font-size: 10px;
+  color: var(--color-text-muted);
+}
+
+.conversa-msg.is-minha .conversa-hora {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.conversa-erro {
+  padding: 0 12px 8px;
+  font-size: 12px;
+  color: #f87171;
+}
+
+.conversa-form {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  padding: 8px;
+  border-top: 0.5px solid var(--color-border);
+}
+
+.conversa-input {
+  flex: 1;
+  min-width: 0;
+  min-height: 44px;
+  max-height: 120px;
+  resize: none;
+  padding: 11px 12px;
+  overflow-y: auto;
+  scrollbar-width: none;
+  field-sizing: content;
+}
+
+.conversa-input::-webkit-scrollbar {
+  display: none;
+}
+
+.conversa-enviar {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: var(--radius-input);
+  background: var(--color-accent);
+  color: #fff;
+  cursor: pointer;
+}
+
+.conversa-enviar:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

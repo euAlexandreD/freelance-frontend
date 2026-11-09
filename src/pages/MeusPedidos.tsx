@@ -1,10 +1,11 @@
 import { useCallback, useEffect, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { apiFetch } from '../lib/api'
 import { formatPreco } from '../lib/format'
 import type { Pedido } from '../lib/types'
 import { AvaliarPedido } from '../components/AvaliarPedido'
 import { Estrelas } from '../components/Estrelas'
+import { ConversaPedido } from '../components/ConversaPedido'
 import './MeusPedidos.css'
 
 const STATUS_LABEL: Record<Pedido['status'], string> = {
@@ -17,10 +18,18 @@ const STATUS_LABEL: Record<Pedido['status'], string> = {
 
 export function MeusPedidos() {
   const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
+  /** Pedido vindo do link do e-mail (?pedido=ID): abre a conversa e rola até ele. */
+  const pedidoDestaque = Number(searchParams.get('pedido')) || null
 
   const [pedidos, setPedidos] = useState<Pedido[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+
+  useEffect(() => {
+    if (loading || !pedidoDestaque) return
+    document.getElementById(`pedido-${pedidoDestaque}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }, [loading, pedidoDestaque])
   const [actingId, setActingId] = useState<number | null>(null)
 
   const loadPedidos = useCallback(() => {
@@ -62,6 +71,12 @@ export function MeusPedidos() {
     }
   }
 
+  function marcarLidas(id: number) {
+    setPedidos((prev) =>
+      prev.map((p) => (p.id === id && p.mensagens_nao_lidas ? { ...p, mensagens_nao_lidas: 0 } : p)),
+    )
+  }
+
   return (
     <div className="meus-servicos-page">
       <header className="meus-servicos-header">
@@ -79,7 +94,11 @@ export function MeusPedidos() {
 
       <div className="catalog-list">
         {pedidos.map((pedido) => (
-          <article key={pedido.id} className="catalog-card">
+          <article
+            key={pedido.id}
+            id={`pedido-${pedido.id}`}
+            className={`catalog-card${pedido.id === pedidoDestaque ? ' is-destaque' : ''}`}
+          >
             <span className={`pedido-status pedido-status-${pedido.status}`}>
               {STATUS_LABEL[pedido.status]}
             </span>
@@ -126,6 +145,13 @@ export function MeusPedidos() {
                 </button>
               </div>
             )}
+
+            <ConversaPedido
+              pedidoId={pedido.id}
+              naoLidas={pedido.mensagens_nao_lidas}
+              abertaInicialmente={pedido.id === pedidoDestaque}
+              onLidas={() => marcarLidas(pedido.id)}
+            />
           </article>
         ))}
       </div>
