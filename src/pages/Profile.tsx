@@ -1,7 +1,7 @@
 import { useEffect, useState, type ChangeEvent, type FormEvent } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { IconUser, IconBriefcase } from '@tabler/icons-react'
-import { apiFetch } from '../lib/api'
+import { apiFetch, logout } from '../lib/api'
 import './Profile.css'
 
 type FieldErrors = Record<string, string[]>
@@ -139,8 +139,8 @@ export function Profile() {
     }
   }
 
-  function handleLogout() {
-    localStorage.removeItem('token')
+  async function handleLogout() {
+    await logout()
     navigate('/')
   }
 
@@ -174,7 +174,7 @@ export function Profile() {
             </div>
             <label className="profile-avatar-upload">
               Escolher foto
-              <input type="file" accept="image/*" onChange={handleAvatarChange} hidden />
+              <input type="file" accept="image/jpeg,image/png,image/webp" onChange={handleAvatarChange} hidden />
             </label>
             {errors.avatar && <span className="auth-field-error">{errors.avatar[0]}</span>}
           </div>
@@ -246,6 +246,7 @@ export function Profile() {
                   className="auth-textarea"
                   value={bio}
                   onChange={(e) => setBio(e.target.value)}
+                  maxLength={2000}
                   placeholder="Conte um pouco sobre os serviços que você presta"
                 />
                 {errors.bio && <span className="auth-field-error">{errors.bio[0]}</span>}

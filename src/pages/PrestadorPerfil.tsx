@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { IconExternalLink, IconMapPin } from '@tabler/icons-react'
-import { apiFetch } from '../lib/api'
+import { apiFetch, linkSeguro } from '../lib/api'
 import { formatData, notaMedia } from '../lib/format'
 import type { PrestadorPublico } from '../lib/types'
 import { Avatar } from '../components/Avatar'
@@ -58,6 +58,7 @@ export function PrestadorPerfil() {
 
   const { user } = prestador
   const nota = notaMedia(prestador.nota_media)
+  const portfolio = linkSeguro(prestador.link_externo)
 
   return (
     <div className="catalog-page">
@@ -80,10 +81,10 @@ export function PrestadorPerfil() {
             <li>{prestador.pedidos_concluidos} serviço(s) concluído(s)</li>
             <li>Na plataforma desde {formatData(prestador.membro_desde)}</li>
           </ul>
-          {prestador.link_externo && (
+          {portfolio && (
             <a
               className="prestador-link"
-              href={prestador.link_externo}
+              href={portfolio}
               target="_blank"
               rel="noopener noreferrer nofollow"
             >

@@ -52,6 +52,7 @@ export function SolicitarServico({ servicoId }: { servicoId: number }) {
             placeholder="Conte o que você precisa, prazo, local... (opcional)"
             value={descricao}
             onChange={(e) => setDescricao(e.target.value)}
+            maxLength={2000}
           />
           <div className="meus-servicos-actions">
             <button type="button" className="meus-servicos-btn" onClick={enviar} disabled={enviando}>

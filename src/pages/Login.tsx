@@ -46,6 +46,7 @@ export function Login() {
             email,
             password,
             password_confirmation: passwordConfirmation,
+            tipo: role,
           }
 
     try {
