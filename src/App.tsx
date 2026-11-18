@@ -6,6 +6,9 @@ import { MeusServicos } from './pages/MeusServicos'
 import { MeusPedidos } from './pages/MeusPedidos'
 import { PedidosRecebidos } from './pages/PedidosRecebidos'
 import { PrestadorPerfil } from './pages/PrestadorPerfil'
+import { EsqueciSenha } from './pages/EsqueciSenha'
+import { RedefinirSenha } from './pages/RedefinirSenha'
+import { NaoEncontrado } from './pages/NaoEncontrado'
 
 function App() {
   return (
@@ -18,6 +21,9 @@ function App() {
         <Route path="/meus-pedidos" element={<MeusPedidos />} />
         <Route path="/pedidos-recebidos" element={<PedidosRecebidos />} />
         <Route path="/prestadores/:id" element={<PrestadorPerfil />} />
+        <Route path="/esqueci-senha" element={<EsqueciSenha />} />
+        <Route path="/redefinir-senha" element={<RedefinirSenha />} />
+        <Route path="*" element={<NaoEncontrado />} />
       </Routes>
     </BrowserRouter>
   )

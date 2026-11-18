@@ -9,6 +9,8 @@ A API (Laravel) fica no repositório [freelance-backend](https://github.com/euAl
 | Rota | Tela |
 |---|---|
 | `/` | Login e cadastro |
+| `/esqueci-senha` | Pede o link para criar uma senha nova |
+| `/redefinir-senha` | Aberta pelo link do e-mail (`?token=...&email=...`): cria a senha nova |
 | `/servicos` | Catálogo com filtro por categoria: foto, título, preço, nota e prestador |
 | `/prestadores/:id` | Perfil público do prestador: serviços, avaliações e serviços concluídos |
 | `/perfil` | Meu perfil: dados, foto e tipo de conta (cliente ou prestador) |
@@ -55,6 +57,12 @@ Para entrar, use um dos usuários de demonstração criados pelo seeder da API, 
 | Variável | Descrição | Exemplo |
 |---|---|---|
 | `VITE_API_URL` | URL base da API | `http://localhost:8000/api` |
+
+Qualquer endereço que não corresponde a uma tela mostra "Página não encontrada".
+
+## Deploy
+
+O `vercel.json` faz a Vercel devolver o `index.html` em qualquer rota, para os links diretos (como os dos e-mails) funcionarem. Na Vercel, defina `VITE_API_URL` com o endereço da API publicada. O passo a passo completo está no `DEPLOY.md` do [freelance-backend](https://github.com/euAlexandreD/freelance-backend/blob/main/DEPLOY.md).
 
 ## Scripts
 

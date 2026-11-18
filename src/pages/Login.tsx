@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { IconUser, IconBriefcase } from '@tabler/icons-react'
 import { apiFetch } from '../lib/api'
 import './Login.css'
@@ -170,7 +170,9 @@ export function Login() {
           )}
 
           {tab === 'login' && (
-            <p className="auth-forgot">Esqueci minha senha</p>
+            <p className="auth-forgot">
+              <Link to="/esqueci-senha">Esqueci minha senha</Link>
+            </p>
           )}
 
           <button type="submit" className="auth-submit" disabled={loading}>
