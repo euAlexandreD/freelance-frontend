@@ -1,13 +1,24 @@
+/* Mobile-first: cartão compacto, com a foto pequena ao lado do título e do preço,
+   para caber mais de um serviço por tela. A partir de 640px, a foto vai para cima. */
 .catalog-card.servico-card {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 104px minmax(0, 1fr);
+  column-gap: 12px;
   padding: 0;
   overflow: hidden;
+  border-radius: 14px;
+}
+
+.servico-card-midia {
+  padding: 12px 0 0 12px;
 }
 
 .servico-card-capa {
-  aspect-ratio: 16 / 10;
+  position: relative;
+  aspect-ratio: 1 / 1;
   background: var(--color-surface-2);
+  border-radius: 10px;
+  overflow: hidden;
 }
 
 .servico-card-capa img {
@@ -15,6 +26,40 @@
   height: 100%;
   object-fit: cover;
   display: block;
+}
+
+.servico-card-capa-btn {
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.servico-card-contador {
+  position: absolute;
+  right: 6px;
+  bottom: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.65);
+  border-radius: 999px;
+  padding: 2px 7px;
+}
+
+.servico-card-resumo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px 12px 0 0;
+  min-width: 0;
+}
+
+.servico-card-resumo .catalog-card-categoria {
+  margin-bottom: 0;
 }
 
 .servico-card-sem-foto {
@@ -27,7 +72,7 @@
 }
 
 .servico-card-miniaturas {
-  display: flex;
+  display: none;
   gap: 6px;
   padding: 8px 16px 0;
   overflow-x: auto;
@@ -59,19 +104,16 @@
 }
 
 .servico-card-corpo {
+  grid-column: 1 / -1;
   display: flex;
   flex-direction: column;
   gap: 6px;
-  padding: 14px 16px 16px;
+  padding: 10px 12px 12px;
   flex: 1;
 }
 
-.servico-card-corpo .catalog-card-categoria {
-  margin-bottom: 0;
-}
-
 .servico-card-titulo {
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 600;
   color: var(--color-text);
   margin: 0;
@@ -85,9 +127,9 @@
 }
 
 .servico-card-descricao {
-  margin: 4px 0 0;
+  margin: 0;
   display: -webkit-box;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -116,7 +158,7 @@
 }
 
 .servico-card-prestador small {
-  font-size: 11px;
+  font-size: 12px;
   color: var(--color-text-muted);
 }
 
@@ -150,4 +192,45 @@
 
 .catalog-request-feedback.is-error {
   color: #f87171;
+}
+
+@media (min-width: 640px) {
+  .catalog-card.servico-card {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .servico-card-midia {
+    padding: 0;
+  }
+
+  .servico-card-capa {
+    aspect-ratio: 16 / 10;
+    border-radius: 0;
+  }
+
+  .servico-card-contador {
+    display: none;
+  }
+
+  .servico-card-miniaturas {
+    display: flex;
+  }
+
+  .servico-card-resumo {
+    padding: 14px 16px 0;
+    gap: 6px;
+  }
+
+  .servico-card-titulo {
+    font-size: 16px;
+  }
+
+  .servico-card-corpo {
+    padding: 8px 16px 16px;
+  }
+
+  .servico-card-descricao {
+    -webkit-line-clamp: 3;
+  }
 }

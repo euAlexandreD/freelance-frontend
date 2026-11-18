@@ -1,0 +1,197 @@
+/* Moldura das telas internas. Mobile-first: cabeçalho enxuto em cima e barra de abas
+   fixa embaixo. A partir de 900px, o menu sobe para o cabeçalho e a barra some. */
+
+.app-shell {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-bg);
+}
+
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 0.5px solid var(--color-border);
+  padding-top: env(safe-area-inset-top);
+}
+
+.app-header-inner {
+  max-width: var(--content-max);
+  margin: 0 auto;
+  height: 56px;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.app-logo {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--color-text);
+  text-decoration: none;
+  letter-spacing: -0.2px;
+}
+
+.app-logo-accent {
+  color: var(--color-accent);
+}
+
+.app-nav-desktop {
+  display: none;
+}
+
+.app-header-conta {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  border-radius: 999px;
+  padding: 3px;
+}
+
+.app-header-conta.active {
+  box-shadow: 0 0 0 2px var(--color-accent);
+}
+
+.app-header-nome {
+  display: none;
+  font-size: 14px;
+  color: var(--color-text-secondary);
+}
+
+.app-header-entrar {
+  margin-left: auto;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text);
+  background: var(--color-accent);
+  border-radius: var(--radius-input);
+  padding: 9px 18px;
+  text-decoration: none;
+}
+
+.app-main {
+  flex: 1;
+  width: 100%;
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: 20px 16px 40px;
+}
+
+.app-shell.has-tabbar .app-main {
+  /* espaço para o conteúdo não ficar escondido atrás da barra de abas */
+  padding-bottom: calc(var(--tabbar-height) + 24px + env(safe-area-inset-bottom));
+}
+
+.app-tabbar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 20;
+  display: flex;
+  background: rgba(10, 10, 13, 0.96);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-top: 0.5px solid var(--color-border);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.app-tab {
+  flex: 1;
+  min-width: 0;
+  height: var(--tabbar-height);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  font-size: 11px;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.app-tab span {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.app-tab.active {
+  color: var(--color-accent);
+}
+
+@media (min-width: 640px) {
+  .app-header-inner,
+  .app-main {
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+
+  .app-main {
+    padding-top: 32px;
+  }
+}
+
+@media (min-width: 900px) {
+  .app-header-inner {
+    height: 64px;
+  }
+
+  .app-nav-desktop {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .app-nav-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: var(--color-text-muted);
+    text-decoration: none;
+    padding: 8px 14px;
+    border-radius: 999px;
+  }
+
+  .app-nav-link:hover {
+    color: var(--color-text);
+    background: var(--color-surface-2);
+  }
+
+  .app-nav-link.active {
+    color: var(--color-text);
+    background: var(--color-surface-2);
+  }
+
+  .app-header-nome {
+    display: inline;
+  }
+
+  .app-header-conta {
+    padding: 3px 3px 3px 14px;
+    border: 0.5px solid var(--color-border);
+  }
+
+  .app-header-conta:hover {
+    border-color: var(--color-accent);
+  }
+
+  .app-tabbar {
+    display: none;
+  }
+
+  .app-shell.has-tabbar .app-main {
+    padding-bottom: 56px;
+  }
+}

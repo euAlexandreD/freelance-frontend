@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
 import { apiFetch } from '../lib/api'
 import type { CategoriaServico, Servico } from '../lib/types'
 import { ServicoCard } from '../components/ServicoCard'
@@ -37,35 +36,24 @@ export function Servicos() {
 
   return (
     <div className="catalog-page">
-      <header className="catalog-header">
-        <div className="catalog-logo">
-          <span className="auth-logo-accent">F</span>
-          <span>reelance</span>
-        </div>
-        <div className="catalog-header-links">
-          <Link to="/meus-pedidos" className="catalog-profile-link">
-            Meus pedidos
-          </Link>
-          <Link to="/perfil" className="catalog-profile-link">
-            Meu perfil
-          </Link>
-        </div>
-      </header>
-
       <h1 className="catalog-title">Serviços disponíveis</h1>
 
-      <select
-        className="catalog-filter"
-        value={categoriaId}
-        onChange={(e) => setCategoriaId(e.target.value)}
-      >
-        <option value="">Todas as categorias</option>
-        {categorias.map((categoria) => (
-          <option key={categoria.id} value={categoria.id}>
-            {categoria.nome}
-          </option>
-        ))}
-      </select>
+      <div className="catalog-chips" role="group" aria-label="Filtrar por categoria">
+        {[{ id: '', nome: 'Todas' }, ...categorias].map((categoria) => {
+          const valor = String(categoria.id)
+          return (
+            <button
+              key={valor || 'todas'}
+              type="button"
+              className={`catalog-chip${categoriaId === valor ? ' is-active' : ''}`}
+              aria-pressed={categoriaId === valor}
+              onClick={() => setCategoriaId(valor)}
+            >
+              {categoria.nome}
+            </button>
+          )
+        })}
+      </div>
 
       {error && <p className="catalog-message">{error}</p>}
       {!error && loading && <p className="catalog-message">Carregando...</p>}

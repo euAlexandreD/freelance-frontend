@@ -115,9 +115,6 @@ export function PedidosRecebidos() {
     <div className="meus-servicos-page">
       <header className="meus-servicos-header">
         <h1 className="meus-servicos-title">Pedidos recebidos</h1>
-        <Link to="/meus-servicos" className="catalog-profile-link">
-          Meus serviços
-        </Link>
       </header>
 
       {error && <p className="meus-servicos-message meus-servicos-error">{error}</p>}

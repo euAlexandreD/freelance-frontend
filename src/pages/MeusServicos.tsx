@@ -12,7 +12,10 @@ import './MeusServicos.css'
 type ErrosValidacao = Record<string, string[]>
 
 /** Lê a resposta de erro do backend: erros por campo (422) ou uma mensagem geral. */
-async function lerErro(res: Response, padrao: string): Promise<{ mensagem: string; erros: ErrosValidacao }> {
+async function lerErro(
+  res: Response,
+  padrao: string,
+): Promise<{ mensagem: string; erros: ErrosValidacao }> {
   const data = await res.json().catch(() => ({}))
   return { mensagem: data.message ?? padrao, erros: data.errors ?? {} }
 }
@@ -33,6 +36,8 @@ export function MeusServicos() {
   const [createErros, setCreateErros] = useState<ErrosValidacao>({})
   const [novasFotos, setNovasFotos] = useState<File[]>([])
   const [formKey, setFormKey] = useState(0)
+  // No celular o cadastro fica recolhido atrás de um botão (no computador, sempre aberto).
+  const [formAberto, setFormAberto] = useState(false)
 
   const [editingId, setEditingId] = useState<number | null>(null)
   const [editErros, setEditErros] = useState<ErrosValidacao>({})
@@ -118,6 +123,7 @@ export function MeusServicos() {
       setServicos((prev) => [criado, ...prev])
       setNovasFotos([])
       setFormKey((k) => k + 1)
+      setFormAberto(false)
     } catch {
       setError('Não foi possível conectar ao servidor.')
     } finally {
@@ -131,7 +137,10 @@ export function MeusServicos() {
     setEditErros({})
 
     try {
-      const res = await apiFetch(`/servicos/${id}`, { method: 'PUT', body: JSON.stringify(valores) })
+      const res = await apiFetch(`/servicos/${id}`, {
+        method: 'PUT',
+        body: JSON.stringify(valores),
+      })
 
       if (!res.ok) {
         const { mensagem, erros } = await lerErro(res, 'Não foi possível salvar as alterações.')
@@ -185,6 +194,9 @@ export function MeusServicos() {
     }
   }
 
+  // Sem nenhum serviço ainda, o cadastro já aparece aberto.
+  const mostrarForm = formAberto || (!loading && servicos.length === 0)
+
   if (checkingRole) {
     return <div className="meus-servicos-page" />
   }
@@ -193,9 +205,8 @@ export function MeusServicos() {
     return (
       <div className="meus-servicos-page">
         <p className="meus-servicos-message">
-          Esta área é só para prestadores. Vá até seu{' '}
-          <Link to="/perfil">perfil</Link> e mude o tipo de conta para
-          "prestador" pra cadastrar serviços.
+          Esta área é só para prestadores. Vá até seu <Link to="/perfil">perfil</Link> e mude o tipo
+          de conta para "prestador" pra cadastrar serviços.
         </p>
       </div>
     )
@@ -205,125 +216,151 @@ export function MeusServicos() {
     <div className="meus-servicos-page">
       <header className="meus-servicos-header">
         <h1 className="meus-servicos-title">Meus serviços</h1>
-        <div className="catalog-header-links">
-          {perfilPrestadorId && (
-            <Link to={`/prestadores/${perfilPrestadorId}`} className="catalog-profile-link">
-              Ver meu perfil público
-            </Link>
-          )}
-          <Link to="/perfil" className="catalog-profile-link">
-            Meu perfil
+        {perfilPrestadorId && (
+          <Link to={`/prestadores/${perfilPrestadorId}`} className="meus-servicos-header-link">
+            Ver perfil público
           </Link>
-        </div>
+        )}
       </header>
 
-      <section className="meus-servicos-form">
-        <h2 className="meus-servicos-subtitle">Novo serviço</h2>
-        <ServicoForm
-          key={formKey}
-          categorias={categorias}
-          enviando={creating}
-          textoBotao="Cadastrar serviço"
-          erros={createErros}
-          onSubmit={handleCreate}
-          extra={
-            <NovasFotos arquivos={novasFotos} onChange={setNovasFotos} />
-          }
-        />
-      </section>
-
-      {error && <p className="meus-servicos-message meus-servicos-error">{error}</p>}
-      {loading && <p className="meus-servicos-message">Carregando...</p>}
-      {!loading && servicos.length === 0 && (
-        <p className="meus-servicos-message">Você ainda não cadastrou nenhum serviço.</p>
-      )}
-
-      <div className="catalog-list">
-        {servicos.map((servico) =>
-          editingId === servico.id ? (
-            <article key={servico.id} className="catalog-card">
-              <ServicoForm
-                categorias={categorias}
-                inicial={servico}
-                enviando={saving}
-                textoBotao="Salvar"
-                erros={editErros}
-                onSubmit={(valores) => handleSaveEdit(servico.id, valores)}
-                onCancel={() => {
-                  setEditingId(null)
-                  setEditErros({})
-                }}
-              />
-            </article>
-          ) : (
-            <ServicoCard
-              key={servico.id}
-              servico={servico}
-              semPrestador
-              etiqueta={servico.ativo ? undefined : 'pausado'}
+      <div className="meus-servicos-layout">
+        <aside className={`meus-servicos-novo${mostrarForm ? ' is-open' : ''}`}>
+          {!mostrarForm && (
+            <button
+              type="button"
+              className="auth-submit meus-servicos-novo-toggle"
+              onClick={() => setFormAberto(true)}
             >
-              <FotosServico
-                servicoId={servico.id}
-                fotos={servico.fotos}
-                onChange={(fotos) => atualizarServico({ ...servico, fotos })}
-              />
+              + Novo serviço
+            </button>
+          )}
 
-              {confirmDeleteId === servico.id ? (
-                <div className="meus-servicos-actions">
-                  <span className="meus-servicos-confirm">Excluir este serviço?</span>
-                  <button
-                    type="button"
-                    className="meus-servicos-btn meus-servicos-btn-danger"
-                    onClick={() => handleDelete(servico.id)}
-                  >
-                    Sim
-                  </button>
-                  <button
-                    type="button"
-                    className="meus-servicos-btn meus-servicos-btn-ghost"
-                    onClick={() => setConfirmDeleteId(null)}
-                  >
-                    Não
-                  </button>
-                </div>
-              ) : (
-                <div className="meus-servicos-actions">
-                  <button
-                    type="button"
-                    className="meus-servicos-btn"
-                    onClick={() => {
-                      setEditingId(servico.id)
+          <section className="meus-servicos-form">
+            <div className="meus-servicos-form-topo">
+              <h2 className="meus-servicos-subtitle">Novo serviço</h2>
+              {formAberto && (
+                <button
+                  type="button"
+                  className="meus-servicos-btn meus-servicos-btn-ghost meus-servicos-fechar"
+                  onClick={() => setFormAberto(false)}
+                >
+                  Fechar
+                </button>
+              )}
+            </div>
+            <ServicoForm
+              key={formKey}
+              categorias={categorias}
+              enviando={creating}
+              textoBotao="Cadastrar serviço"
+              erros={createErros}
+              onSubmit={handleCreate}
+              extra={<NovasFotos arquivos={novasFotos} onChange={setNovasFotos} />}
+            />
+          </section>
+        </aside>
+
+        <div className="meus-servicos-lista">
+          {error && <p className="meus-servicos-message meus-servicos-error">{error}</p>}
+          {loading && <p className="meus-servicos-message">Carregando...</p>}
+          {!loading && servicos.length === 0 && (
+            <p className="meus-servicos-message">Você ainda não cadastrou nenhum serviço.</p>
+          )}
+
+          <div className="catalog-list">
+            {servicos.map((servico) =>
+              editingId === servico.id ? (
+                <article key={servico.id} className="catalog-card">
+                  <ServicoForm
+                    categorias={categorias}
+                    inicial={servico}
+                    enviando={saving}
+                    textoBotao="Salvar"
+                    erros={editErros}
+                    onSubmit={(valores) => handleSaveEdit(servico.id, valores)}
+                    onCancel={() => {
+                      setEditingId(null)
                       setEditErros({})
                     }}
-                  >
-                    Editar
-                  </button>
-                  <button
-                    type="button"
-                    className="meus-servicos-btn meus-servicos-btn-ghost"
-                    onClick={() => toggleAtivo(servico)}
-                  >
-                    {servico.ativo ? 'Pausar' : 'Ativar'}
-                  </button>
-                  <button
-                    type="button"
-                    className="meus-servicos-btn meus-servicos-btn-danger"
-                    onClick={() => setConfirmDeleteId(servico.id)}
-                  >
-                    Excluir
-                  </button>
-                </div>
-              )}
-            </ServicoCard>
-          ),
-        )}
+                  />
+                </article>
+              ) : (
+                <ServicoCard
+                  key={servico.id}
+                  servico={servico}
+                  semPrestador
+                  etiqueta={servico.ativo ? undefined : 'pausado'}
+                >
+                  <FotosServico
+                    servicoId={servico.id}
+                    fotos={servico.fotos}
+                    onChange={(fotos) => atualizarServico({ ...servico, fotos })}
+                  />
+
+                  {confirmDeleteId === servico.id ? (
+                    <div className="meus-servicos-actions">
+                      <span className="meus-servicos-confirm">Excluir este serviço?</span>
+                      <button
+                        type="button"
+                        className="meus-servicos-btn meus-servicos-btn-danger"
+                        onClick={() => handleDelete(servico.id)}
+                      >
+                        Sim
+                      </button>
+                      <button
+                        type="button"
+                        className="meus-servicos-btn meus-servicos-btn-ghost"
+                        onClick={() => setConfirmDeleteId(null)}
+                      >
+                        Não
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="meus-servicos-actions">
+                      <button
+                        type="button"
+                        className="meus-servicos-btn"
+                        onClick={() => {
+                          setEditingId(servico.id)
+                          setEditErros({})
+                        }}
+                      >
+                        Editar
+                      </button>
+                      <button
+                        type="button"
+                        className="meus-servicos-btn meus-servicos-btn-ghost"
+                        onClick={() => toggleAtivo(servico)}
+                      >
+                        {servico.ativo ? 'Pausar' : 'Ativar'}
+                      </button>
+                      <button
+                        type="button"
+                        className="meus-servicos-btn meus-servicos-btn-danger"
+                        onClick={() => setConfirmDeleteId(servico.id)}
+                      >
+                        Excluir
+                      </button>
+                    </div>
+                  )}
+                </ServicoCard>
+              ),
+            )}
+          </div>
+        </div>
       </div>
     </div>
   )
 }
 
 /** Seleção de fotos no cadastro: as fotos só sobem depois que o serviço é criado. */
-function NovasFotos({ arquivos, onChange }: { arquivos: File[]; onChange: (arquivos: File[]) => void }) {
+function NovasFotos({
+  arquivos,
+  onChange,
+}: {
+  arquivos: File[]
+  onChange: (arquivos: File[]) => void
+}) {
   const [previas, setPrevias] = useState<string[]>([])
 
   useEffect(() => {

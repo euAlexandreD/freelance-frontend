@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { IconExternalLink, IconMapPin } from '@tabler/icons-react'
 import { apiFetch, linkSeguro } from '../lib/api'
 import { formatData, notaMedia } from '../lib/format'
@@ -34,12 +34,6 @@ export function PrestadorPerfil() {
     }
   }, [id])
 
-  const voltar = (
-    <Link to="/servicos" className="catalog-profile-link">
-      ← Catálogo
-    </Link>
-  )
-
   if (estado !== 'ok' || !prestador) {
     const mensagem = {
       carregando: 'Carregando...',
@@ -50,7 +44,6 @@ export function PrestadorPerfil() {
 
     return (
       <div className="catalog-page">
-        <header className="catalog-header">{voltar}</header>
         <p className="catalog-message">{mensagem}</p>
       </div>
     )
@@ -62,7 +55,6 @@ export function PrestadorPerfil() {
 
   return (
     <div className="catalog-page">
-      <header className="catalog-header">{voltar}</header>
 
       <section className="prestador-hero">
         <Avatar nome={user.name} url={user.avatar_url} tamanho={88} />

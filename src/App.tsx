@@ -9,18 +9,21 @@ import { PrestadorPerfil } from './pages/PrestadorPerfil'
 import { EsqueciSenha } from './pages/EsqueciSenha'
 import { RedefinirSenha } from './pages/RedefinirSenha'
 import { NaoEncontrado } from './pages/NaoEncontrado'
+import { AppLayout } from './components/AppLayout'
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Login />} />
-        <Route path="/perfil" element={<Profile />} />
-        <Route path="/servicos" element={<Servicos />} />
-        <Route path="/meus-servicos" element={<MeusServicos />} />
-        <Route path="/meus-pedidos" element={<MeusPedidos />} />
-        <Route path="/pedidos-recebidos" element={<PedidosRecebidos />} />
-        <Route path="/prestadores/:id" element={<PrestadorPerfil />} />
+        <Route element={<AppLayout />}>
+          <Route path="/perfil" element={<Profile />} />
+          <Route path="/servicos" element={<Servicos />} />
+          <Route path="/meus-servicos" element={<MeusServicos />} />
+          <Route path="/meus-pedidos" element={<MeusPedidos />} />
+          <Route path="/pedidos-recebidos" element={<PedidosRecebidos />} />
+          <Route path="/prestadores/:id" element={<PrestadorPerfil />} />
+        </Route>
         <Route path="/esqueci-senha" element={<EsqueciSenha />} />
         <Route path="/redefinir-senha" element={<RedefinirSenha />} />
         <Route path="*" element={<NaoEncontrado />} />

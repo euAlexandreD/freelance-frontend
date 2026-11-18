@@ -81,9 +81,6 @@ export function MeusPedidos() {
     <div className="meus-servicos-page">
       <header className="meus-servicos-header">
         <h1 className="meus-servicos-title">Meus pedidos</h1>
-        <Link to="/servicos" className="catalog-profile-link">
-          Catálogo
-        </Link>
       </header>
 
       {error && <p className="meus-servicos-message meus-servicos-error">{error}</p>}

@@ -1,5 +1,6 @@
 import { useEffect, useState, type ChangeEvent, type FormEvent } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import { useConta } from '../lib/conta'
 import { IconUser, IconBriefcase } from '@tabler/icons-react'
 import { apiFetch, logout } from '../lib/api'
 import './Profile.css'
@@ -25,6 +26,7 @@ type ProfileResponse = {
 
 export function Profile() {
   const navigate = useNavigate()
+  const { recarregarConta } = useConta()
 
   const [loadingProfile, setLoadingProfile] = useState(true)
   const [saving, setSaving] = useState(false)
@@ -132,6 +134,8 @@ export function Profile() {
       setAvatarFile(null)
       setAvatarPreview(null)
       setSuccess(true)
+      // o menu depende do tipo de conta e mostra a foto: atualiza depois de salvar
+      void recarregarConta()
     } catch {
       setGeneralError('Não foi possível conectar ao servidor.')
     } finally {
@@ -146,7 +150,7 @@ export function Profile() {
 
   if (loadingProfile) {
     return (
-      <div className="auth-page">
+      <div className="auth-page profile-page">
         <div className="auth-card">
           <p className="auth-subtitle">Carregando perfil...</p>
         </div>
@@ -155,7 +159,7 @@ export function Profile() {
   }
 
   return (
-    <div className="auth-page">
+    <div className="auth-page profile-page">
       <div className="auth-card">
         <h1 className="auth-title">Editar perfil</h1>
         <p className="auth-subtitle">Mantenha seus dados atualizados</p>
@@ -163,7 +167,7 @@ export function Profile() {
         {generalError && <div className="auth-alert auth-alert-error">{generalError}</div>}
         {success && <div className="auth-alert auth-alert-success">Perfil salvo com sucesso!</div>}
 
-        <form onSubmit={handleSubmit} noValidate>
+        <form className="profile-form" onSubmit={handleSubmit} noValidate>
           <div className="auth-field profile-avatar-field">
             <div className="profile-avatar-preview">
               {avatarPreview || avatarUrl ? (
@@ -179,7 +183,7 @@ export function Profile() {
             {errors.avatar && <span className="auth-field-error">{errors.avatar[0]}</span>}
           </div>
 
-          <div className="auth-field">
+          <div className="auth-field profile-half">
             <p className="auth-label">Nome</p>
             <input
               className="auth-input"
@@ -192,7 +196,7 @@ export function Profile() {
             {errors.name && <span className="auth-field-error">{errors.name[0]}</span>}
           </div>
 
-          <div className="auth-field">
+          <div className="auth-field profile-half">
             <p className="auth-label">E-mail</p>
             <input
               className="auth-input"
@@ -228,7 +232,7 @@ export function Profile() {
 
           {role === 'prestador' && (
             <>
-              <div className="auth-field">
+              <div className="auth-field profile-half">
                 <p className="auth-label">Título</p>
                 <input
                   className="auth-input"
@@ -252,7 +256,7 @@ export function Profile() {
                 {errors.bio && <span className="auth-field-error">{errors.bio[0]}</span>}
               </div>
 
-              <div className="auth-field">
+              <div className="auth-field profile-half">
                 <p className="auth-label">Link externo (portfólio, Instagram, LinkedIn)</p>
                 <input
                   className="auth-input"
@@ -268,7 +272,7 @@ export function Profile() {
             </>
           )}
 
-          <div className="profile-field-row">
+          <div className="profile-field-row profile-half">
             <div className="auth-field">
               <p className="auth-label">Cidade</p>
               <input
@@ -295,7 +299,7 @@ export function Profile() {
             </div>
           </div>
 
-          <div className="auth-field">
+          <div className="auth-field profile-half">
             <p className="auth-label">Telefone</p>
             <input
               className="auth-input"
@@ -311,28 +315,6 @@ export function Profile() {
             {saving ? 'Salvando...' : 'Salvar alterações'}
           </button>
         </form>
-
-        <p className="auth-divider">— navegar —</p>
-
-        <div className="profile-nav">
-          <Link to="/servicos" className="profile-nav-link">
-            Ver catálogo de serviços
-          </Link>
-          {role === 'prestador' ? (
-            <>
-              <Link to="/meus-servicos" className="profile-nav-link">
-                Gerenciar meus serviços
-              </Link>
-              <Link to="/pedidos-recebidos" className="profile-nav-link">
-                Pedidos recebidos
-              </Link>
-            </>
-          ) : (
-            <Link to="/meus-pedidos" className="profile-nav-link">
-              Meus pedidos
-            </Link>
-          )}
-        </div>
 
         <button type="button" className="profile-logout" onClick={handleLogout}>
           Sair da conta

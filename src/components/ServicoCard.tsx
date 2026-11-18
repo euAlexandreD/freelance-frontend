@@ -24,33 +24,50 @@ export function ServicoCard({ servico, semPrestador, etiqueta, children }: Servi
 
   return (
     <article className="catalog-card servico-card">
-      <div className="servico-card-capa">
-        {capa ? (
-          <img src={capa.url} alt={servico.titulo} loading="lazy" />
-        ) : (
-          <div className="servico-card-sem-foto" aria-hidden="true">
-            <IconPhoto size={28} />
+      <div className="servico-card-midia">
+        <div className="servico-card-capa">
+          {capa ? (
+            fotos.length > 1 ? (
+              // No celular as miniaturas somem: tocar na capa passa para a próxima foto.
+              <button
+                type="button"
+                className="servico-card-capa-btn"
+                onClick={() => setFotoAtual((atual) => (atual + 1) % fotos.length)}
+                aria-label={`Foto ${fotoAtual + 1} de ${fotos.length}. Ver a próxima`}
+              >
+                <img src={capa.url} alt={servico.titulo} loading="lazy" />
+                <span className="servico-card-contador">
+                  {fotoAtual + 1}/{fotos.length}
+                </span>
+              </button>
+            ) : (
+              <img src={capa.url} alt={servico.titulo} loading="lazy" />
+            )
+          ) : (
+            <div className="servico-card-sem-foto" aria-hidden="true">
+              <IconPhoto size={28} />
+            </div>
+          )}
+        </div>
+
+        {fotos.length > 1 && (
+          <div className="servico-card-miniaturas">
+            {fotos.map((foto, indice) => (
+              <button
+                key={foto.id}
+                type="button"
+                className={`servico-card-miniatura${indice === fotoAtual ? ' is-active' : ''}`}
+                onClick={() => setFotoAtual(indice)}
+                aria-label={`Ver foto ${indice + 1}`}
+              >
+                <img src={foto.url} alt="" loading="lazy" />
+              </button>
+            ))}
           </div>
         )}
       </div>
 
-      {fotos.length > 1 && (
-        <div className="servico-card-miniaturas">
-          {fotos.map((foto, indice) => (
-            <button
-              key={foto.id}
-              type="button"
-              className={`servico-card-miniatura${indice === fotoAtual ? ' is-active' : ''}`}
-              onClick={() => setFotoAtual(indice)}
-              aria-label={`Ver foto ${indice + 1}`}
-            >
-              <img src={foto.url} alt="" loading="lazy" />
-            </button>
-          ))}
-        </div>
-      )}
-
-      <div className="servico-card-corpo">
+      <div className="servico-card-resumo">
         <span className="catalog-card-categoria">
           {servico.categoria_servico.nome}
           {etiqueta && ` · ${etiqueta}`}
@@ -58,6 +75,9 @@ export function ServicoCard({ servico, semPrestador, etiqueta, children }: Servi
         <h2 className="servico-card-titulo">{servico.titulo}</h2>
         <p className="servico-card-preco">{formatPreco(servico)}</p>
         <Estrelas nota={notaMedia(servico.nota_media)} total={servico.avaliacoes_count} />
+      </div>
+
+      <div className="servico-card-corpo">
         <p className="catalog-card-descricao servico-card-descricao">{servico.descricao}</p>
 
         {!semPrestador && prestador && (

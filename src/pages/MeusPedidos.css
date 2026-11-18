@@ -2,7 +2,7 @@
 
 .pedido-status {
   display: inline-block;
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.4px;
   text-transform: uppercase;
@@ -90,4 +90,11 @@
 .catalog-card.is-destaque {
   border-color: var(--color-accent);
   scroll-margin-top: 16px;
+}
+
+/* Pedidos têm conversa e ações: cartões um pouco mais largos que os do catálogo. */
+@media (min-width: 640px) {
+  .meus-servicos-page > .catalog-list {
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  }
 }

@@ -1,23 +1,62 @@
 @import './Servicos.css';
 
+/* Usado também por Meus pedidos e Pedidos recebidos. O espaçamento externo vem da
+   moldura (AppLayout). */
 .meus-servicos-page {
-  min-height: 100vh;
-  background: var(--color-bg);
-  padding: 20px 16px 40px;
+  min-width: 0;
 }
 
 .meus-servicos-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 12px;
   margin-bottom: 20px;
 }
 
 .meus-servicos-title {
-  font-size: 20px;
-  font-weight: 500;
+  font-size: 22px;
+  font-weight: 600;
   color: var(--color-text);
   margin: 0;
+}
+
+.meus-servicos-header-link {
+  font-size: 14px;
+  color: var(--color-accent);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.meus-servicos-header-link:hover {
+  text-decoration: underline;
+}
+
+/* Cadastro: no celular, recolhido atrás do botão "+ Novo serviço". */
+.meus-servicos-novo {
+  margin-bottom: 24px;
+}
+
+.meus-servicos-novo-toggle {
+  margin-bottom: 0;
+}
+
+.meus-servicos-novo:not(.is-open) .meus-servicos-form {
+  display: none;
+}
+
+.meus-servicos-form-topo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.meus-servicos-form-topo .meus-servicos-subtitle {
+  margin: 0;
+}
+
+.meus-servicos-lista {
+  min-width: 0;
 }
 
 .meus-servicos-form {
@@ -26,9 +65,8 @@
   gap: 12px;
   background: var(--color-surface);
   border: 0.5px solid var(--color-border);
-  border-radius: var(--radius-input);
+  border-radius: 14px;
   padding: 16px;
-  margin-bottom: 24px;
 }
 
 .meus-servicos-message {
@@ -48,12 +86,42 @@
 }
 
 @media (min-width: 640px) {
-  .meus-servicos-page {
-    padding: 32px 40px 48px;
+  .meus-servicos-title {
+    font-size: 26px;
   }
 
-  .meus-servicos-form {
-    max-width: 480px;
+  .meus-servicos-novo {
+    max-width: 560px;
+  }
+}
+
+/* Computador: cadastro fixo à esquerda e a lista de serviços ao lado. */
+@media (min-width: 1024px) {
+  .meus-servicos-layout {
+    display: grid;
+    grid-template-columns: 380px minmax(0, 1fr);
+    gap: 28px;
+    align-items: start;
+  }
+
+  .meus-servicos-novo {
+    position: sticky;
+    top: 88px;
+    max-width: none;
+    margin-bottom: 0;
+  }
+
+  .meus-servicos-novo-toggle,
+  .meus-servicos-fechar {
+    display: none;
+  }
+
+  .meus-servicos-novo:not(.is-open) .meus-servicos-form {
+    display: flex;
+  }
+
+  .meus-servicos-lista .catalog-list {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   }
 }
 

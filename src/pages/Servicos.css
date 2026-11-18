@@ -1,41 +1,57 @@
 /* Mobile-first: single column list, filter and header stack full-width.
    From tablet up: cards flow into a responsive grid. */
 
+/* O espaçamento externo vem da moldura (AppLayout). */
 .catalog-page {
-  min-height: 100vh;
-  background: var(--color-bg);
-  padding: 20px 16px 40px;
-}
-
-.catalog-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 24px;
-}
-
-.catalog-logo {
-  font-size: 18px;
-  font-weight: 500;
-  color: var(--color-text);
-}
-
-.catalog-header-links {
-  display: flex;
-  gap: 16px;
-}
-
-.catalog-profile-link {
-  font-size: 12px;
-  color: var(--color-accent);
-  text-decoration: none;
+  min-width: 0;
 }
 
 .catalog-title {
-  font-size: 20px;
-  font-weight: 500;
+  font-size: 22px;
+  font-weight: 600;
   color: var(--color-text);
-  margin: 0 0 16px;
+  margin: 0 0 14px;
+}
+
+/* Filtro de categorias: no celular, uma faixa que desliza para o lado; em telas
+   maiores, quebra em linhas. */
+.catalog-chips {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  margin: 0 -16px 20px;
+  padding: 0 16px 4px;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.catalog-chips::-webkit-scrollbar {
+  display: none;
+}
+
+.catalog-chip {
+  flex-shrink: 0;
+  min-height: 38px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 0.5px solid var(--color-border);
+  background: var(--color-surface-2);
+  color: var(--color-text-secondary);
+  font-size: 14px;
+  font-family: inherit;
+  white-space: nowrap;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.catalog-chip:hover {
+  border-color: var(--color-text-dim);
+}
+
+.catalog-chip.is-active {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-text);
 }
 
 .catalog-filter {
@@ -73,7 +89,7 @@
 
 .catalog-card-categoria {
   display: inline-block;
-  font-size: 10px;
+  font-size: 11px;
   letter-spacing: 0.4px;
   text-transform: uppercase;
   color: var(--color-accent);
@@ -162,17 +178,20 @@
 }
 
 @media (min-width: 640px) {
-  .catalog-page {
-    padding: 32px 40px 48px;
+  .catalog-title {
+    font-size: 26px;
   }
 
-  .catalog-filter {
-    max-width: 280px;
+  .catalog-chips {
+    flex-wrap: wrap;
+    overflow: visible;
+    margin: 0 0 24px;
+    padding: 0;
   }
 
   .catalog-list {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 16px;
+    gap: 20px;
   }
 }
